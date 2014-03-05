@@ -1,0 +1,40 @@
+{
+  "name": "api-proxy",
+  "version": "0.0.1",
+  "description": "HTTP proxy with response modification - for use in stubbing APIs during dev/testing",
+  "main": "./lib/proxy.js",
+  "dependencies": {
+    "body": "^4.4.2",
+    "connect": "^2.13.1",
+    "http-proxy": "0.10.3",
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "tap": "^0.4.8"
+  },
+  "scripts": {
+    "test": "tap ./test",
+    "start": "node ./bin/api-proxy.js"
+  },
+  "bin": {
+    "api-proxy": "./bin/api-proxy.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/josephsavona/api-proxy.git"
+  },
+  "keywords": [
+    "node",
+    "proxy",
+    "api",
+    "test",
+    "stub",
+    "mock"
+  ],
+  "author": "Joseph Savona <joe@josephsavona.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/josephsavona/api-proxy/issues"
+  },
+  "homepage": "https://github.com/josephsavona/api-proxy"
+}
