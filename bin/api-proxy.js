@@ -1,10 +1,9 @@
 var path = require('path');
-var fs = require('fs');
 var proxy = require('../lib/proxy');
 
 var argv = require('minimist')(process.argv.slice(2), {
-  string: ['debug', 'host', 'port', 'proxyhost', 'proxyport', 'static', 'config', 'cert', 'key'],
-  boolean: ['ssl'],
+  string: ['debug', 'host', 'port', 'proxyhost', 'proxyport', 'static', 'config'],
+  boolean: ['ssl', 'help'],
   default: {
     ssl: false,
     host: 'localhost',
@@ -13,24 +12,12 @@ var argv = require('minimist')(process.argv.slice(2), {
     proxyport: '3000',
     debug: 'proxy',
     static: null,
-    config: null,
-    key: null,
-    cert: null
+    config: null
   }
 });
 
-if (argv.ssl && (!argv.key || !argv.cert)) {
-  console.error('must provide --key="..." and --cert="..." for --ssl');
-  process.exit(1);
-}
-
-if (!argv.proxyhost) {
-  console.error('--proxyhost="hostname" is required');
-  process.exit(1);
-}
-
-if (!argv.proxyport) {
-  console.error('--proxyport="80" is required');
+if (!argv.proxyhost || !argv.proxyport) {
+  console.error('--proxyhost and --proxyport are required');
   process.exit(1);
 }
 
@@ -51,12 +38,6 @@ var options = {
     return middleware;
   }
 };
-if (argv.key) {
-  options.key = fs.readFileSync(path.resolve(process.cwd(), argv.key), 'utf8');
-}
-if (argv.cert) {
-  options.cert = fs.readFileSync(path.resolve(process.cwd(), argv.cert), 'utf8');
-}
 
 var server = proxy.get(options);
 
